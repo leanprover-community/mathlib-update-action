@@ -1,0 +1,58 @@
+name: "Mathlib update checker"
+description: "Determines which Mathlib releases are available for the project to upgrade to."
+inputs:
+  intermediate_releases:
+    description: |
+      Controls which Mathlib releases to upgrade to. There are three options:
+      * `all`: update to each release, followed by Mathlib `master` (default)
+      * `latest`: update only to the newest release, followed by Mathlib `master`
+      * `master`: update only to Mathlib `master`
+    required: false
+    default: "all"
+  lake_package_directory:
+    description: |
+      The directory containing the Lake package to build.
+      This parameter is passed to the lake-package-directory argument of leanprover/lean-action.
+    required: false
+    default: "."
+  legacy_update:
+    description: |
+      If set to `true`, executes `lake -R -Kenv=dev update` instead of `lake update`.
+    required: false
+    default: "false"
+outputs:
+  is-update-available:
+    description: "Is there a new version available that can be updated to?"
+    value: ${{ steps.check-for-updates.outputs.is-update-available }}
+  new-tags:
+    description: "New Mathlib release tags, as a JSON array of strings."
+    value: ${{ steps.check-for-updates.outputs.new-tags }}
+runs:
+  using: "composite"
+  steps:
+    - name: Checkout the repository
+      uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4.2.2
+      with:
+        fetch-tags: true
+    - name: Configure Lean
+      uses: leanprover/lean-action@f807b338d95de7813c5c50d018f1c23c9b93b4ec # 2025-04-24
+      with:
+        auto-config: false
+        use-github-cache: false
+        use-mathlib-cache: false
+        reinstall-transient-toolchain: true
+    - name: "Check for Mathlib updates"
+      id: check-for-updates
+      run: node "${{ github.action_path }}/dist/index.js"
+      shell: bash
+      working-directory: ${{ inputs.lake_package_directory }}
+      env:
+        GH_TOKEN: ${{ github.token }}
+        INTERMEDIATE_RELEASES: ${{ inputs.intermediate_releases }}
+        LEGACY_UPDATE: ${{ inputs.legacy_update }}
+    - name: "Upload the new metadata (toolchains and manifests)"
+      if: ${{ steps.check-for-updates.outputs.is-update-available }}
+      uses: actions/upload-artifact@v4
+      with:
+        name: update-metadata
+        path: ${{ inputs.lake_package_directory }}/mathlib-update-metadata/
