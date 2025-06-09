@@ -49,6 +49,7 @@ jobs:
         with:
           tag: ${{ matrix.tag }}
           # START CONFIGURATION BLOCK 2
+          # token: ${{ secrets.UPDATE_ACTION_TOKEN }}
           # END CONFIGURATION BLOCK 2
 ```
 
@@ -141,7 +142,7 @@ Default: `.`
 
 #### `token`
 
-A Github token to be used for committing and creating issues/PRs.
+A Github token to be used for committing and creating issues/PRs. This is **obligatory** if you want CI to run on the commits created by this action. Create [a fine-grained personal access token](https://docs.github.com/en/authentication/keeping-your-account-and-data-secure/managing-your-personal-access-tokens) with write permissions for Contents and Pull requests. Add it [as a secret](https://docs.github.com/en/actions/security-for-github-actions/security-guides/using-secrets-in-github-actions) called `UPDATE_ACTION_TOKEN`. Then uncomment the `token:` line in the configuration block.
 
 Default: `${{ github.token }}`
 

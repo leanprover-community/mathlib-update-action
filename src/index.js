@@ -52,7 +52,7 @@ function getVersionTags(repo) {
   });
 
   // Sort versions and get the latest one
-  semvers.sort((a, b) => semver.lt(a, b));
+  semvers.sort((a, b) => semver.compareBuild(a, b));
 
   return semvers;
 }
@@ -126,7 +126,12 @@ function lakeUpdate(legacyUpdate) {
     execSync("lake -R -Kenv=dev update", { stdio: "inherit" });
   } else {
     console.log("Using standard update command");
-    execSync("lake update", { stdio: "inherit" });
+    execSync("lake update", {
+      stdio: "inherit",
+      env:
+        // We do not need to fetch the Mathlib cache on every step.
+        Object.assign({ MATHLIB_NO_CACHE_ON_UPDATE: "1" }, process.env),
+    });
   }
 }
 
