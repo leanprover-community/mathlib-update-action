@@ -31104,7 +31104,7 @@ function getVersionTags(repo) {
   });
 
   // Sort versions and get the latest one
-  semvers.sort((a, b) => semver.lt(a, b));
+  semvers.sort((a, b) => semver.compareBuild(a, b));
 
   return semvers;
 }
@@ -31129,7 +31129,10 @@ function modifyLakefileTOMLMathlibVersion(fd, tag) {
   const lakefile = TOML.parse(data);
 
   for (const pkg of lakefile.require) {
-    if (pkg.scope == "leanprover-community" && pkg.name == "mathlib") {
+    if (
+      pkg.git == "https://github.com/leanprover-community/mathlib4.git" ||
+      (pkg.scope == "leanprover-community" && pkg.name == "mathlib")
+    ) {
       pkg.rev = tag;
     }
   }
@@ -31178,7 +31181,12 @@ function lakeUpdate(legacyUpdate) {
     execSync("lake -R -Kenv=dev update", { stdio: "inherit" });
   } else {
     console.log("Using standard update command");
-    execSync("lake update", { stdio: "inherit" });
+    execSync("lake update", {
+      stdio: "inherit",
+      env:
+        // We do not need to fetch the Mathlib cache on every step.
+        Object.assign({ MATHLIB_NO_CACHE_ON_UPDATE: "1" }, process.env),
+    });
   }
 }
 

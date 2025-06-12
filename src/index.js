@@ -77,7 +77,10 @@ function modifyLakefileTOMLMathlibVersion(fd, tag) {
   const lakefile = TOML.parse(data);
 
   for (const pkg of lakefile.require) {
-    if (pkg.scope == "leanprover-community" && pkg.name == "mathlib") {
+    if (
+      pkg.git == "https://github.com/leanprover-community/mathlib4.git" ||
+      (pkg.scope == "leanprover-community" && pkg.name == "mathlib")
+    ) {
       pkg.rev = tag;
     }
   }
