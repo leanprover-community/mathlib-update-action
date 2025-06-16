@@ -51,7 +51,7 @@ runs:
         INTERMEDIATE_RELEASES: ${{ inputs.intermediate_releases }}
         LEGACY_UPDATE: ${{ inputs.legacy_update }}
     - name: "Upload the new metadata (toolchains and manifests)"
-      if: ${{ steps.check-for-updates.outputs.is-update-available }}
+      if: ${{ steps.check-for-updates.outputs.is-update-available == 'true' }}
       uses: actions/upload-artifact@v4
       with:
         name: update-metadata
