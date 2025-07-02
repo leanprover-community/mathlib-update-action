@@ -10,7 +10,7 @@ First make sure that GitHub Actions can create and approve pull requests: go to 
 
 Then, copy the following code into `.github/workflows/mathlib-release-update.lean`, commit and push it.
 
-```
+```yml
 name: Update Dependencies
 on:
   schedule:             # Sets a schedule to trigger the workflow
