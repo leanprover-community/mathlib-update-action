@@ -8,7 +8,7 @@ This reuses code licensed under the MIT license from leanprover-community/lean-u
 
 First make sure that GitHub Actions can create and approve pull requests: go to Settings -> Actions -> General and select "Allow GitHub Actions to create and approve pull requests".
 
-Then, copy the following code into `.github/workflows/mathlib-release-update.lean`, commit and push it.
+Then, copy the following code into `.github/workflows/mathlib-release-update.yaml`, commit and push it.
 
 ```yml
 name: Update Dependencies
