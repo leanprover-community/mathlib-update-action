@@ -2,7 +2,7 @@
 
 A GitHub Action that attempts to update a Lean project depending on Mathlib.
 
-This reuses code licensed under the MIT license from leanprover-community/lean-update by Asei Inouse(Seasawher), which in turn forks oliver-butterley/lean-update by Oliver Butterley.
+This reuses code licensed under the MIT license from leanprover-community/lean-update by Asei Inoue (Seasawher), which in turn forks oliver-butterley/lean-update by Oliver Butterley.
 
 ## Installation
 
