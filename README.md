@@ -13,9 +13,9 @@ Then, copy the following code into `.github/workflows/mathlib-release-update.lea
 ```
 name: Update Dependencies
 on:
-  schedule:             # Sets a schedule to trigger the workflow
+  schedule:               # Sets a schedule to trigger the workflow
     - cron: "0 8 */7 * *" # Every 7 days at 08:00 AM UTC (for more info on the cron syntax see https://docs.github.com/en/actions/writing-workflows/choosing-when-your-workflow-runs/events-that-trigger-workflows#schedule)
-    workflow_dispatch:    # Allows the workflow to be triggered manually via the GitHub interface
+  workflow_dispatch:      # Allows the workflow to be triggered manually via the GitHub interface
 
 jobs:
   check-for-updates: # Determines which updates to apply.
