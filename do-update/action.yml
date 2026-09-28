@@ -95,7 +95,7 @@ runs:
         use-mathlib-cache: false
         reinstall-transient-toolchain: true
     - name: Get the metadata files
-      uses: actions/download-artifact@v4
+      uses: actions/download-artifact@d3f86a106a0bac45b974a628896c90dbdf5c8093 # v4
       with:
         name: update-metadata
         path: mathlib-update-metadata/
@@ -132,7 +132,7 @@ runs:
       if: steps.check-update.outputs.files_changed == 'true'
       id: build-lean
       continue-on-error: true
-      uses: leanprover/lean-action@v1
+      uses: leanprover/lean-action@50fcf42d2e460296f1a34b402e990d1b24f8b596 # v1
       with:
         build-args: ${{ inputs.build_args }}
         lake-package-directory: ${{ inputs.lake_package_directory }}
@@ -193,7 +193,7 @@ runs:
         inputs.on_update_succeeds == 'pr' &&
         steps.check-update.outputs.do_update == 'true' &&
         steps.check-update.outputs.lean_toolchain_updated == 'true'
-      uses: peter-evans/create-pull-request@v7
+      uses: peter-evans/create-pull-request@22a9089034f40e5a961c8808d113e2c98fb63676 # v7
       with:
         title: "Updates available and ready to merge"
         body: |
@@ -210,7 +210,7 @@ runs:
         inputs.on_update_succeeds == 'pr' &&
         steps.check-update.outputs.do_update == 'true' &&
         steps.check-update.outputs.lean_toolchain_updated == 'false'
-      uses: peter-evans/create-pull-request@v7
+      uses: peter-evans/create-pull-request@22a9089034f40e5a961c8808d113e2c98fb63676 # v7
       with:
         title: "Updates available and ready to merge"
         body: "${{ steps.list-previous-prs.outputs.summary-text }}"
@@ -238,7 +238,7 @@ runs:
 
     - name: Commit update if the updated lean build was successful
       if: steps.build-lean.outcome == 'success' && inputs.on_update_succeeds == 'commit' && steps.check-update.outputs.do_update == 'true'
-      uses: EndBug/add-and-commit@v9.1.4
+      uses: EndBug/add-and-commit@a94899bca583c204427a224a7af87c02f9b325d5 # v9.1.4
       with:
         default_author: github_actions
       env:
