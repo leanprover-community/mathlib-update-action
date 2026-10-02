@@ -88,7 +88,7 @@ runs:
     - name: Checkout the repository
       uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4.2.2
     - name: Configure Lean
-      uses: leanprover/lean-action@f807b338d95de7813c5c50d018f1c23c9b93b4ec # 2025-04-24
+      uses: leanprover/lean-action@f061402b660e0c34644504b324e830f2991d4865 # v1.6.1
       with:
         auto-config: false
         use-github-cache: false
@@ -132,7 +132,7 @@ runs:
       if: steps.check-update.outputs.files_changed == 'true'
       id: build-lean
       continue-on-error: true
-      uses: leanprover/lean-action@50fcf42d2e460296f1a34b402e990d1b24f8b596 # v1
+      uses: leanprover/lean-action@f061402b660e0c34644504b324e830f2991d4865 # v1.6.1
       with:
         build-args: ${{ inputs.build_args }}
         lake-package-directory: ${{ inputs.lake_package_directory }}
