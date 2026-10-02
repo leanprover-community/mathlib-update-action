@@ -35,7 +35,7 @@ runs:
       with:
         fetch-tags: true
     - name: Configure Lean
-      uses: leanprover/lean-action@f807b338d95de7813c5c50d018f1c23c9b93b4ec # 2025-04-24
+      uses: leanprover/lean-action@f061402b660e0c34644504b324e830f2991d4865 # v1.6.1
       with:
         auto-config: false
         use-github-cache: false
@@ -52,7 +52,7 @@ runs:
         LEGACY_UPDATE: ${{ inputs.legacy_update }}
     - name: "Upload the new metadata (toolchains and manifests)"
       if: ${{ steps.check-for-updates.outputs.is-update-available == 'true' }}
-      uses: actions/upload-artifact@v4
+      uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4
       with:
         name: update-metadata
         path: ${{ inputs.lake_package_directory }}/mathlib-update-metadata/
