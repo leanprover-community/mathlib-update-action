@@ -2,7 +2,7 @@
 
 A GitHub Action that attempts to update a Lean project depending on Mathlib.
 
-This reuses code licensed under the MIT license from leanprover-community/lean-update by Asei Inouse(Seasawher), which in turn forks oliver-butterley/lean-update by Oliver Butterley.
+This reuses code licensed under the MIT license from leanprover-community/lean-update by Asei Inoue (Seasawher), which in turn forks oliver-butterley/lean-update by Oliver Butterley.
 
 ## Installation
 
@@ -13,9 +13,9 @@ Then, copy the following code into `.github/workflows/mathlib-release-update.yam
 ```yml
 name: Update Dependencies
 on:
-  schedule:             # Sets a schedule to trigger the workflow
+  schedule:               # Sets a schedule to trigger the workflow
     - cron: "0 8 */7 * *" # Every 7 days at 08:00 AM UTC (for more info on the cron syntax see https://docs.github.com/en/actions/writing-workflows/choosing-when-your-workflow-runs/events-that-trigger-workflows#schedule)
-    workflow_dispatch:    # Allows the workflow to be triggered manually via the GitHub interface
+  workflow_dispatch:      # Allows the workflow to be triggered manually via the GitHub interface
 
 jobs:
   check-for-updates: # Determines which updates to apply.
