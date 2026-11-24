@@ -41,6 +41,7 @@ runs:
         use-github-cache: false
         use-mathlib-cache: false
         reinstall-transient-toolchain: true
+        lake-package-directory: ${{ inputs.lake_package_directory }}
     - name: "Check for Mathlib updates"
       id: check-for-updates
       run: node "${{ github.action_path }}/dist/index.js"
